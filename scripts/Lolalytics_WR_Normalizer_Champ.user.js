@@ -4,7 +4,7 @@
 // @run-at document-idle
 // ==/UserScript==
 
-var fireOnHashChangesToo = true;
+const fireOnHashChangesToo = true;
 var pageURLCheckTimer = setInterval(
     function () {
         if (this.lastPathStr !== location.pathname
@@ -26,22 +26,22 @@ function main() {
 }
 
 function normalizeChampWR() {
-    avgWRText = document.getElementsByClassName("ml-auto text-right")[0].textContent
-    avgWR = avgWRText.split(":")[1].split("%")[0].trim()
+    const avgWRText = document.getElementsByClassName("ml-auto text-right")[0].textContent
+    const avgWR = avgWRText.split(":")[1].split("%")[0].trim()
     console.log("avgWR:", avgWR)
 
     //normalize WR of champ
-    StatContainer = document.getElementsByClassName("mb-1 font-bold")[0]
+    const StatContainer = document.getElementsByClassName("mb-1 font-bold")[0]
     if (!StatContainer.marked) {
         StatContainer.marked = true
-        ogWR = StatContainer.textContent.split("%")[0].trim()
+        const ogWR = StatContainer.textContent.split("%")[0].trim()
         console.log("ogWR:", ogWR)
         //shifted Normalization (ogWR - (avgWR - 50))
         WR = Math.round((ogWR - avgWR + 50) * 100) / 100
         // StatContainer.childNodes[1].nodeValue = WR
         //coloring
         console.log("WR:", WR)
-        color = getColor(WR)
+        const color = getColor(WR)
         StatContainer.innerHTML = '<div style="color:' + color + '"> ' + WR + "%" + '<\div><div style="font-size: 8px; color: grey">' + ogWR + "%" + "</div>"
     }
 }
@@ -88,9 +88,9 @@ function normalizeChampWR() {
 // }
 
 function getColor(WR) {
-    high = { r: 0, g: 255, b: 0 }
-    mid = { r: 230, g: 220, b: 215 }
-    low = { r: 255, g: 0, b: 0 }
+    const high = { r: 0, g: 255, b: 0 }
+    const mid = { r: 230, g: 220, b: 215 }
+    const low = { r: 255, g: 0, b: 0 }
 
     if (WR > 55) {
         return toRgb(high)
@@ -104,9 +104,9 @@ function getColor(WR) {
 }
 
 function getGradientColor(percentage, high, low) {
-    var r = high.r * percentage + low.r * (1 - percentage);
-    var g = high.g * percentage + low.g * (1 - percentage);
-    var b = high.b * percentage + low.b * (1 - percentage);
+    const r = high.r * percentage + low.r * (1 - percentage);
+    const g = high.g * percentage + low.g * (1 - percentage);
+    const b = high.b * percentage + low.b * (1 - percentage);
     return { r: r, g: g, b: b };
 }
 
