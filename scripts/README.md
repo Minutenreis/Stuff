@@ -9,6 +9,7 @@
     - click on the extension icon in your browser
     - select "Create a new script" (or similar)
     - copy the content of the script you want to install
+    - clear the editor (CTRL+A, DEL)
     - paste it into the editor
     - save the script
     - make sure the script is enabled
