@@ -4,6 +4,8 @@
 // @run-at document-idle
 // ==/UserScript==
 
+// !IMPORTANT this script does not run (well) with the new Lolalytics design as not all elements are loaded at the same time
+
 var fireOnHashChangesToo = true;
 var pageURLCheckTimer = setInterval(
     function () {
