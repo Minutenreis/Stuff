@@ -4,8 +4,8 @@
 // @run-at document-idle
 // ==/UserScript==
 
-let cutoff = 1000; // minimum games played
-let timeout = 250; // time to wait before executing function after button click
+const cutoff = 1000; // minimum games played
+const timeout = 250; // time to wait before executing function after button click
 
 var fireOnHashChangesToo = true;
 var pageURLCheckTimer = setInterval(
@@ -25,7 +25,7 @@ var pageURLCheckTimer = setInterval(
 
 function main() {
     filter()
-    let btn = document.querySelector("[q\\:id='3q']");
+    const btn = document.querySelector("[q\\:id='3q']");
     btn.onclick = filterAfterTimeout;
 }
 
@@ -34,15 +34,14 @@ function filterAfterTimeout() {
 }
 
 function filter() {
-    let counters = document.querySelectorAll("[q\\:key='yJ_1']")[2];
-    let champSpans = counters.children[0].children[1].children;
-    console.log(champSpans.length);
+    const counters = document.querySelectorAll("[q\\:key='yJ_1']")[2];
+    const champSpans = counters.children[0].children[1].children;
     for (const champSpan of champSpans) {
         if (champSpan.tagName !== "SPAN") {
             continue;
         }
-        let gamesText = champSpan.children[0].children[0].children[0].children[5].innerText;
-        let games = Number(gamesText.slice(0, -6).replace(/\,|\./g, ""));
+        const gamesText = champSpan.children[0].children[0].children[0].children[5].innerText;
+        const games = Number(gamesText.slice(0, -6).replace(/\,|\./g, ""));
         if (games < cutoff) {
             champSpan.style.display = "none";
         } else {

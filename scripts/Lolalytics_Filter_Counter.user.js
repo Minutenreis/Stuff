@@ -1,4 +1,4 @@
-// due to Lolalytics Server Side rendering this script doesn't really work all that well
+// IMPORTANT: due to Lolalytics Server Side rendering this script doesn't really work all that well
 
 
 let cutOff = 1000; // minimum games played
