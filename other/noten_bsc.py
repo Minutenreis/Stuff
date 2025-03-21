@@ -11,6 +11,7 @@ def calcSchnitt(noten):
 
 # (Note, ECTS)
 noten = [
+    (2.0, 24),  # Bachelorarbeit
     # B
     (2.3, 6),  # Lineare Algebra
     (1.7, 6),  # Grundlagen der Technischen Informatik
