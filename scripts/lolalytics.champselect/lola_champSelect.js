@@ -5,7 +5,7 @@ const connector = new LCUConnector();
 let runningInterval = null;
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
-const championsData  = require('./champion.json');
+const championsData = require('./champion.json');
 
 const keyToNameMap = new Map();
 
@@ -31,8 +31,9 @@ connector.on('disconnect', () => {
 connector.start();
 
 function openLolalytics(champName) {
+  console.log(`Opening ${champName} on lolalytics...`);
   var url = `https://lolalytics.com/lol/${champName}/build/`;
-  var start = (process.platform == 'darwin'? 'open': process.platform == 'win32'? 'start': 'xdg-open');
+  var start = (process.platform == 'darwin' ? 'open' : process.platform == 'win32' ? 'start' : 'sensible-browser');
   child_process.exec(start + ' ' + url);
 }
 
@@ -51,7 +52,7 @@ function getCurrentChampion(data) {
         if (resolvedResponse.httpStatus === 404) {
         }
         else {
-          if (resolvedResponse !== 0){
+          if (resolvedResponse !== 0) {
             const champName = keyToNameMap.get(resolvedResponse.toString());
             if (!champName) {
               console.log(resolvedResponse, champName);
@@ -63,7 +64,8 @@ function getCurrentChampion(data) {
         }
       })
       .catch((error) => {
+        console.error('Error fetching current champion:', error);
       });
-    
+
   }, 1000);
 }
