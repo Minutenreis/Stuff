@@ -15,8 +15,6 @@ for (const champId in championsData.data) {
   keyToNameMap.set(champ.key, champ.name);
 }
 
-lastChamp = null;
-
 connector.on('connect', (data) => {
   runningInterval = getCurrentChampion(data);
 });
@@ -37,9 +35,21 @@ function openLolalytics(champName) {
   child_process.exec(start + ' ' + url);
 }
 
-
+SECONDS_BETWEEN_REQUESTS = 15; // seconds
+secondsSinceLastRequest = SECONDS_BETWEEN_REQUESTS;
+inChampSelect = false; // boolean to check if in champ select
+champPicked = false; // boolean to check if champ is picked
+lastChamp = null; // last champion picked (to avoid opening the same page multiple times)
 function getCurrentChampion(data) {
   return setInterval(() => {
+
+    // to avoid spamming the requests
+    if ((!inChampSelect || champPicked) && secondsSinceLastRequest < SECONDS_BETWEEN_REQUESTS) {
+      secondsSinceLastRequest++;
+      return;
+    }
+
+    // console.log("Fetching current champion...");
     fetch(`https://${data.address}:${data.port}/lol-champ-select/v1/current-champion`, {
       method: 'GET',
       headers: {
@@ -50,13 +60,20 @@ function getCurrentChampion(data) {
         const resolvedResponse = await response.json();
 
         if (resolvedResponse.httpStatus === 404) {
+          inChampSelect = false;
+          champPicked = false;
+          secondsSinceLastRequest = 0;
         }
         else {
+          inChampSelect = true;
+          secondsSinceLastRequest = 0;
           if (resolvedResponse !== 0) {
+            if (champPicked) {
+              return;
+            }
+            champPicked = true;
             const champName = keyToNameMap.get(resolvedResponse.toString());
-            if (!champName) {
-              console.log(resolvedResponse, champName);
-            } else if (champName !== lastChamp) {
+            if (champName !== lastChamp) {
               lastChamp = champName;
               openLolalytics(champName);
             }
