@@ -5,14 +5,35 @@ const connector = new LCUConnector();
 let runningInterval = null;
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
-const championsData = require('./champion.json');
+let championJson = {};
 
-const keyToNameMap = new Map();
+async function getLatestDDragon() {
+  if (Object.keys(championJson).length > 0) { return championJson; }
+  const versions = await fetch("https://ddragon.leagueoflegends.com/api/versions.json");
+  const latest = (await versions.json())[0];
 
-for (const champId in championsData.data) {
-  const champ = championsData.data[champId];
-  champ.name = champ.name.replaceAll(' ', '').replaceAll('\'', '').toLowerCase();
-  keyToNameMap.set(champ.key, champ.name);
+  const ddragon = await fetch(`https://ddragon.leagueoflegends.com/cdn/${latest}/data/en_US/champion.json`);
+
+  const champions = (await ddragon.json())["data"];
+  console.log(champions);
+  championJson = champions;
+  return champions;
+}
+
+async function getChampionByKey(key) {
+
+  const champions = await getLatestDDragon();
+
+  for (var championName in champions) {
+    if (!champions.hasOwnProperty(championName)) { continue; }
+
+    if (champions[championName]["key"] === key) {
+      return champions[championName]
+    }
+  }
+
+  return false;
+
 }
 
 connector.on('connect', (data) => {
@@ -72,7 +93,8 @@ function getCurrentChampion(data) {
               return;
             }
             champPicked = true;
-            const champName = keyToNameMap.get(resolvedResponse.toString());
+            const champName = await getChampionByKey(resolvedResponse.toString());
+            console.log(champName);
             if (champName !== lastChamp) {
               lastChamp = champName;
               openLolalytics(champName);
