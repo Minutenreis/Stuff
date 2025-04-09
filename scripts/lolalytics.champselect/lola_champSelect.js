@@ -94,7 +94,6 @@ function getCurrentChampion(data) {
             champPicked = true;
             const champName = (await getChampionByKey(resolvedResponse.toString())).name;
             const champNameLower = champName.toLowerCase().replaceAll(/ /g, "");
-            console.log(champNameLower);
             if (champNameLower !== lastChamp) {
               lastChamp = champNameLower;
               openLolalytics(champNameLower);
