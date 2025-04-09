@@ -15,7 +15,6 @@ async function getLatestDDragon() {
   const ddragon = await fetch(`https://ddragon.leagueoflegends.com/cdn/${latest}/data/en_US/champion.json`);
 
   const champions = (await ddragon.json())["data"];
-  console.log(champions);
   championJson = champions;
   return champions;
 }
@@ -93,11 +92,12 @@ function getCurrentChampion(data) {
               return;
             }
             champPicked = true;
-            const champName = await getChampionByKey(resolvedResponse.toString());
-            console.log(champName);
-            if (champName !== lastChamp) {
-              lastChamp = champName;
-              openLolalytics(champName);
+            const champName = (await getChampionByKey(resolvedResponse.toString())).name;
+            const champNameLower = champName.toLowerCase().replaceAll(/ /g, "");
+            console.log(champNameLower);
+            if (champNameLower !== lastChamp) {
+              lastChamp = champNameLower;
+              openLolalytics(champNameLower);
             }
           }
         }
