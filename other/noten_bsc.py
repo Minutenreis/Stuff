@@ -38,7 +38,7 @@ noten = [
     (1.3, 6),   # Projekt - Paralleles Rechnen
     (1.0, 6),   # Parallel Computing I
     (1.0, 6),   # Parallel Computing II
-    #
+    # C
     (1.7, 3),   # Seminar High-Performance Computing
     (1.3, 6),   # IT-Sicherheit
     (1.0, 4),   # Algorithmisches Beweisen LAB
