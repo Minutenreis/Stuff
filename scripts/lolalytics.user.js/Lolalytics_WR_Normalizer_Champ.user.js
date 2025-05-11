@@ -22,7 +22,6 @@ var pageURLCheckTimer = setInterval(
 
 function main() {
     normalizeChampWR()
-    // calculateDelta2()
 }
 
 function normalizeChampWR() {
@@ -45,47 +44,6 @@ function normalizeChampWR() {
         StatContainer.innerHTML = '<div style="color:' + color + '"> ' + WR + "%" + '<\div><div style="font-size: 8px; color: grey">' + ogWR + "%" + "</div>"
     }
 }
-
-// function calculateDelta2() {
-//     const lane = getSelectedLane()
-//     const laneIndex = laneToIndex(lane)
-//     const laneMatchups = document.getElementsByClassName("CountersPanel_counters__U8zc5")[laneIndex].children[1].children[0].children
-//     const delta2SquaredScaled = Array.from(laneMatchups, (matchup) => (matchup.children[3].innerText ** 2 * matchup.children[4].innerText / 100))
-//     const delta2SquaredScaledSum = delta2SquaredScaled.reduce((a, b) => a + b, 0)
-//     StatContainer = document.getElementsByClassName("ChampionStats_stats__26e3l")[0].children
-//     if (!StatContainer[3].marked) {
-//         StatContainer[3].marked = true
-//         const pickrate = StatContainer[3].childNodes[0].innerHTML
-//         console.log(pickrate)
-//         StatContainer[3].childNodes[0].innerHTML = '<div> ' + pickrate + '<\div><div style="font-size: 8px; color: grey">' + Math.round(delta2SquaredScaledSum * 100) / 100 + "</div>"
-//     }
-// }
-
-/**
- * get the selected lane
- * @returns "top" | "jungle" | "middle" | "bottom" | "support"
- */
-// function getSelectedLane() {
-//     const classSymbol = document.getElementsByClassName("LanePicker_inneractive__bEJGw")[0]
-//     return classSymbol.children[0].alt
-// }
-
-// function laneToIndex(lane) {
-//     switch (lane) {
-//         case "top":
-//             return 0
-//         case "jungle":
-//             return 1
-//         case "middle":
-//             return 2
-//         case "bottom":
-//             return 3
-//         case "support":
-//             return 4
-//         default:
-//             return -1
-//     }
-// }
 
 function getColor(WR) {
     const high = { r: 0, g: 255, b: 0 }
