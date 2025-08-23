@@ -64,5 +64,6 @@ PythonASQ/8/beispieldaten/*.csv
 
 ## Non Synced support folder for other peoples codes:
 /support/*
+/local/*
 PythonASQ/Minesweeper/highscores.txt
 test.rest
