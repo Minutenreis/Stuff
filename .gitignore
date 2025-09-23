@@ -59,11 +59,13 @@ PythonASQ/8/beispieldaten/*.csv
 ## VSCode Settings Files:
 .vscode/*
 
-## Gitkeep
-!.gitkeep
 
 ## Non Synced support folder for other peoples codes:
 /support/*
 /local/*
+/local-code/*
 PythonASQ/Minesweeper/highscores.txt
 test.rest
+
+## Gitkeep
+!.gitkeep
