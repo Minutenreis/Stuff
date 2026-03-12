@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name Lolalytics WR Normalizer Champs & Delta2 Calc
+// @name Lolalytics WR Normalizer Champs
 // @match https://lolalytics.com/lol/*/build/*
 // @run-at document-idle
 // ==/UserScript==
