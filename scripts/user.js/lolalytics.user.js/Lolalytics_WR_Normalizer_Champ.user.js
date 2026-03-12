@@ -45,7 +45,6 @@ function normalizeChampWR() {
         console.log("ogWR:", ogWR)
         //shifted Normalization (ogWR - (avgWR - 50))
         WR = Math.round((ogWR - avgWR + 50) * 100) / 100
-        // StatContainer.childNodes[1].nodeValue = WR
         //coloring
         console.log("WR:", WR)
         const color = getColor(WR)
