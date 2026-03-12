@@ -22,6 +22,14 @@ var pageURLCheckTimer = setInterval(
 
 function main() {
     normalizeChampWR()
+    selectMostCommon()
+}
+
+function selectMostCommon() {
+    console.log('selected')
+    const xpath = "//div[text()='Most Common Build']";
+    const button = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    button.click();
 }
 
 function normalizeChampWR() {
