@@ -24,9 +24,14 @@ var pageURLCheckTimer = setInterval(
 );
 
 function main() {
-    filter()
-    const btn = document.querySelector("[q\\:id='3q']");
-    btn.onclick = filterAfterTimeout;
+    filter();
+    let filterButtonQIds = ["3q", "3r", "3s", "3t", "3u", "3v"];
+    for (const qid of filterButtonQIds) {
+        const btn = document.querySelector(`[q\\:id='${qid}']`);
+        if (btn) {
+            btn.onclick = filterAfterTimeout;
+        }
+    }
 }
 
 function filterAfterTimeout() {
@@ -34,18 +39,22 @@ function filterAfterTimeout() {
 }
 
 function filter() {
-    const counters = document.querySelectorAll("[q\\:key='yJ_1']")[2];
+    const counters = document.querySelectorAll("[q\\:key='2G_1']")[2];
     const champSpans = counters.children[0].children[1].children;
+    let hideCounter = 0;
     for (const champSpan of champSpans) {
         if (champSpan.tagName !== "SPAN") {
             continue;
         }
         const gamesText = champSpan.children[0].children[0].children[0].children[5].innerText;
         const games = Number(gamesText.slice(0, -6).replace(/\,|\./g, ""));
-        if (games < cutoff) {
+        let hide = games < cutoff;
+        hideCounter += Number(hide);
+        if (hide) {
             champSpan.style.display = "none";
         } else {
             champSpan.style.display = "";
         }
     }
+    console.log(`Filtered ${hideCounter} of ${champSpans.length} champions with less than ${cutoff} games played.`);
 }
